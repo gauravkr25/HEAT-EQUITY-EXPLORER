@@ -1,0 +1,78 @@
+Metadata-Version: 2.4
+Name: heat-equity-explorer
+Version: 0.1.0
+Summary: A local-first classical ML study of Phoenix summer land-surface temperature.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: geopandas>=1.0
+Requires-Dist: joblib>=1.3
+Requires-Dist: matplotlib>=3.8
+Requires-Dist: numpy>=1.26
+Requires-Dist: pandas>=2.2
+Requires-Dist: plotly>=5.20
+Requires-Dist: pyarrow>=15.0
+Requires-Dist: pyproj>=3.6
+Requires-Dist: rasterio>=1.3.9
+Requires-Dist: scikit-learn>=1.4
+Requires-Dist: shapely>=2.0
+Requires-Dist: streamlit>=1.49
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"
+
+# Heat Equity Explorer
+
+A local-first Python capstone for exploring Phoenix summer land-surface temperature with classical machine learning. It does not use neural networks, deep learning, LLMs, generative AI, paid integrations, or hosted model services.
+
+## Current Status
+
+The project includes input validation, single-scene Landsat calibration and QA masking, spatial aggregation, tract context, spatial splits, classical regression comparison, and a local results dashboard. Dataset files are intentionally not included; see `data/README.md` and `HEAT_EQUITY_EXPLORER_PLAN.md`.
+
+## Setup
+
+Python 3.11 is required. With `uv` installed:
+
+```powershell
+uv sync --extra dev
+```
+
+Validate required data files before processing:
+
+```powershell
+uv run heat-equity validate-inputs --config configs/phoenix-2021.toml
+```
+
+After manually downloading files into the configured locations, prepare the grid-cell model table:
+
+```powershell
+uv run heat-equity prepare --config configs/phoenix-2021.toml
+```
+
+Train and compare the classical models on the prepared spatial holdout:
+
+```powershell
+uv run heat-equity train-table data/processed/model_table.parquet --output models/latest
+```
+
+Launch the local dashboard:
+
+```powershell
+uv run streamlit run src/heat_equity/app.py
+```
+
+Run tests and lint:
+
+```powershell
+uv run pytest
+uv run ruff check src tests
+```
+
+## Data Inputs
+
+Download public data manually and place it in the paths listed in `configs/phoenix-2021.toml`. Rename the selected Landsat 8 MTL metadata file to `LC08_scene_MTL.txt` and place it beside the Landsat rasters. The validator reports missing required inputs and exits nonzero until those files are present. It does not make network requests or need API keys.
+
+At present, the configuration identifies one Landsat 8 scene. Landsat 9 was not operating during June-August 2021. Multi-scene summer compositing and land-cover provenance review are follow-on refinements; the current result must be described as a single-scene snapshot.
+
+## Scientific Scope
+
+The target is observed satellite land-surface temperature, not near-surface air temperature, individual exposure, a health outcome, or a climate trend. Socioeconomic attributes are kept separate from the temperature model and are used only in descriptive tract-level views.

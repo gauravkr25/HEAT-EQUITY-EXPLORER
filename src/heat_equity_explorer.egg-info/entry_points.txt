@@ -1,0 +1,2 @@
+[console_scripts]
+heat-equity = heat_equity.cli:main

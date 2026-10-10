@@ -1,0 +1,88 @@
+project_name = "Heat Equity Explorer"
+study_area = "Phoenix, Arizona"
+year = 2021
+season_start = "2021-06-01"
+season_end = "2021-08-31"
+target_crs = "EPSG:26912"
+grid_size_meters = 500
+study_area_buffer_meters = 1000
+
+[[inputs]]
+name = "Phoenix municipal boundary"
+path = "data/raw/boundaries/phoenix_boundary.gpkg"
+required = true
+
+[[inputs]]
+name = "Maricopa County census tracts"
+path = "data/raw/boundaries/maricopa_tracts.gpkg"
+required = true
+
+[[inputs]]
+name = "ACS 2017-2021 tract estimates"
+path = "data/raw/census/acs_2017_2021.csv"
+required = true
+
+[[inputs]]
+name = "Landsat surface temperature band"
+path = "data/raw/landsat/ST_B10.tif"
+required = true
+
+[[inputs]]
+name = "Landsat scene metadata"
+path = "data/raw/landsat/LC08_scene_MTL.txt"
+required = true
+
+[[inputs]]
+name = "Landsat pixel QA band"
+path = "data/raw/landsat/QA_PIXEL.tif"
+required = true
+
+[[inputs]]
+name = "Landsat saturation QA band"
+path = "data/raw/landsat/QA_RADSAT.tif"
+required = true
+
+[[inputs]]
+name = "Landsat red reflectance band"
+path = "data/raw/landsat/SR_B4.tif"
+required = true
+
+[[inputs]]
+name = "Landsat blue reflectance band"
+path = "data/raw/landsat/SR_B2.tif"
+required = true
+
+[[inputs]]
+name = "Landsat green reflectance band"
+path = "data/raw/landsat/SR_B3.tif"
+required = true
+
+[[inputs]]
+name = "Landsat near-infrared reflectance band"
+path = "data/raw/landsat/SR_B5.tif"
+required = true
+
+[[inputs]]
+name = "Landsat SWIR1 reflectance band"
+path = "data/raw/landsat/SR_B6.tif"
+required = true
+
+[[inputs]]
+name = "Landsat SWIR2 reflectance band"
+path = "data/raw/landsat/SR_B7.tif"
+required = true
+
+[[inputs]]
+name = "NLCD land-cover raster"
+path = "data/raw/mrlc/nlcd_land_cover_2021.tif"
+required = true
+
+[[inputs]]
+name = "NLCD fractional imperviousness raster"
+path = "data/raw/mrlc/nlcd_impervious_2021.tif"
+required = true
+
+[[inputs]]
+name = "NLCD tree-canopy raster"
+path = "data/raw/mrlc/nlcd_tree_canopy_2021.tif"
+required = false

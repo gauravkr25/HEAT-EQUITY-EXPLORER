@@ -1,0 +1,1 @@
+"""Spatial feature engineering for the Heat Equity Explorer."""
